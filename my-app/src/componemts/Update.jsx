@@ -9,7 +9,7 @@ const Update = () => {
   const [isLoading, setIsLoading] = useState(false); 
   const [error, setError] = useState(""); 
 
-  const { id } = useParams(); // Get the user ID from the URL
+  const { id } = useParams(); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const Update = () => {
     <div className="container mt-5">
       <div className="card shadow-lg p-4 mb-4 rounded">
         <h2 className="text-center mb-4 text-primary">Update User</h2>
-        {error && <p className="text-danger text-center">{error}</p>} {/* Display error message */}
+        {error && <p className="text-danger text-center">{error}</p>} 
         <form onSubmit={handleUpdate}>
           <div className="mb-3">
             <label className="form-label">Name</label>

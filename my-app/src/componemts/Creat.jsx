@@ -10,7 +10,7 @@ const Creat = () => {
 
   const header = { "Access-Control-Allow-Origin": "*" };
 
-  // Email validation regex
+ 
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -18,7 +18,7 @@ const Creat = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Validation checks
+   
     if (!name.trim() || !email.trim()) {
       alert("Both name and email are required!");
       return;
@@ -29,7 +29,6 @@ const Creat = () => {
       return;
     }
 
-    // Proceed with form submission if validation passes
     axios
       .post(
         "https://673de2070118dbfe86092dae.mockapi.io/CRUDAPP",

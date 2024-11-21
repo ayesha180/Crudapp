@@ -1,33 +1,43 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Delete from "./Delete";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; 
 import "../App.css";
 
 export default function Read() {
   const [data, setData] = useState([]);
+  const navigate = useNavigate(); // For programmatic navigation
 
   useEffect(() => {
-    getData(); // Fetch all data on component mount
+    getData(); 
   }, []);
 
   const getData = () => {
     axios
       .get("https://673de2070118dbfe86092dae.mockapi.io/CRUDAPP")
       .then((res) => {
-        setData(res.data); // Update state with fetched data
+        setData(res.data); 
       })
       .catch((error) => console.error("Error fetching data:", error));
   };
 
   const handleDelete = (id) => {
-    // Remove the deleted user from the local state
+    
     setData((prevData) => prevData.filter((item) => item.id !== id));
   };
 
   return (
     <div className="container mt-5">
       <h1 className="text-center text-primary mb-4">Users List</h1>
+      <div className="d-flex justify-content-end mb-4">
+        <button
+          className="btn btn-success px-4 py-2 rounded-pill shadow-sm"
+          onClick={() => navigate("/create")} 
+        >
+          Add New User
+        </button>
+      </div>
+
       <table className="table table-bordered table-hover table-striped shadow-lg">
         <thead className="table-dark">
           <tr>
@@ -44,7 +54,7 @@ export default function Read() {
               <td>{eachData.name}</td>
               <td>{eachData.email}</td>
               <td className="d-flex justify-content-start">
-                {/* Update button */}
+               
                 <Link
                   to={`/update/${eachData.id}`}
                   className="btn btn-warning mx-2 px-4 py-2 rounded-pill shadow-sm text-white"
@@ -52,10 +62,10 @@ export default function Read() {
                   Update
                 </Link>
 
-                {/* Delete button */}
+               
                 <Delete
                   id={eachData.id}
-                  onDelete={handleDelete} // Local handler for removing item
+                  onDelete={handleDelete} 
                 />
               </td>
             </tr>
