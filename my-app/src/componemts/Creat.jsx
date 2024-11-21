@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../App.css"; // Make sure to import your custom CSS for additional styles
+import "../App.css";
 
 const Creat = () => {
   const [name, setName] = useState("");
@@ -10,9 +10,26 @@ const Creat = () => {
 
   const header = { "Access-Control-Allow-Origin": "*" };
 
+  // Email validation regex
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("CLICKED");
+    // Validation checks
+    if (!name.trim() || !email.trim()) {
+      alert("Both name and email are required!");
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      alert("Please enter a valid email address!");
+      return;
+    }
+
+    // Proceed with form submission if validation passes
     axios
       .post(
         "https://673de2070118dbfe86092dae.mockapi.io/CRUDAPP",
@@ -24,7 +41,7 @@ const Creat = () => {
       )
       .then((response) => {
         console.log("Data submitted successfully:", response.data);
-        navigate("/Read"); // Redirect to Read page after successful submission
+        navigate("/Read");
       })
       .catch((error) => {
         console.error("There was an error!", error);

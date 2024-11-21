@@ -9,11 +9,10 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <h1>My Form App</h1> {/* Move this outside <Routes> */}
         <Routes>
           <Route exact path="/" element={<Creat />} />
           <Route exact path="/read" element={<Read />} />
-          <Route exact path="/update/:id" element={<Update />} /> {/* Update route */}
+          <Route exact path="/update/:id" element={<Update />} /> {}
         </Routes>
       </BrowserRouter>
     </div>

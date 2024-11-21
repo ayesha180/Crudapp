@@ -1,27 +1,27 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import Delete from "./Delete"; 
-import { Link } from "react-router-dom"; 
+import Delete from "./Delete";
+import { Link } from "react-router-dom";
 import "../App.css";
 
 export default function Read() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    getData();
+    getData(); // Fetch all data on component mount
   }, []);
 
   const getData = () => {
     axios
       .get("https://673de2070118dbfe86092dae.mockapi.io/CRUDAPP")
       .then((res) => {
-        console.log(res.data);
-        setData(res.data);
+        setData(res.data); // Update state with fetched data
       })
       .catch((error) => console.error("Error fetching data:", error));
   };
 
   const handleDelete = (id) => {
+    // Remove the deleted user from the local state
     setData((prevData) => prevData.filter((item) => item.id !== id));
   };
 
@@ -44,13 +44,19 @@ export default function Read() {
               <td>{eachData.name}</td>
               <td>{eachData.email}</td>
               <td className="d-flex justify-content-start">
+                {/* Update button */}
                 <Link
                   to={`/update/${eachData.id}`}
                   className="btn btn-warning mx-2 px-4 py-2 rounded-pill shadow-sm text-white"
                 >
                   Update
                 </Link>
-                <Delete id={eachData.id} onDelete={handleDelete} />
+
+                {/* Delete button */}
+                <Delete
+                  id={eachData.id}
+                  onDelete={handleDelete} // Local handler for removing item
+                />
               </td>
             </tr>
           ))}
